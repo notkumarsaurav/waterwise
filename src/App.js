@@ -4,12 +4,8 @@ import SplashScreen from "./components/SplashScreen";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import SignupOtp from "./components/SignupOtp";
-import ReportProblemButton from "./components/ReportProblemButton";
-import ReportProblemForm from "./components/ReportProblemForm";
 import MainPage from "./components/MainPage";
 
-import logo from "./assets/waterwise-logo.png";
-import backgroundShape from "./assets/background-shape.png";
 import "./App.css";
 
 function App() {
@@ -20,9 +16,6 @@ function App() {
   // 'splash', 'login', 'signup', 'otp', 'main'
   const [authPage, setAuthPage] = useState("splash");
   const [signupEmailOrPhone, setSignupEmailOrPhone] = useState("");
-
-  // Main UI state (kept for future use)
-  const [isFormVisible, setFormVisible] = useState(false);
 
   // Splash fade and navigation on mount
   useEffect(() => {
@@ -39,13 +32,11 @@ function App() {
   // Handlers
   // ======================
 
-  const handleLogin = (emailOrPhone, password) => {
+  const handleLogin = () => {
     setAuthPage("main");
   };
 
   const handleLogout = () => {
-    // Optional: clear token here later
-    // localStorage.removeItem("token");
     setAuthPage("login");
   };
 
@@ -56,12 +47,9 @@ function App() {
     setAuthPage("otp");
   };
 
-  const handleSubmitOtp = (otp) => {
+  const handleSubmitOtp = () => {
     setAuthPage("main");
   };
-
-  const handleReportClick = () => setFormVisible(true);
-  const handleCloseForm = () => setFormVisible(false);
 
   // ======================
   // Render Flow
@@ -101,10 +89,6 @@ function App() {
       />
     );
   }
-
-  // ======================
-  // MAIN PAGE AFTER LOGIN
-  // ======================
 
   if (authPage === "main") {
     return <MainPage onLogout={handleLogout} />;
