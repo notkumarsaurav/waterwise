@@ -1,6 +1,6 @@
-// src/components/ReportProblemForm.js
 import React, { useState } from "react";
 import "./ReportProblemForm.css";
+import API from "../config";
 
 function ReportProblemForm({ onClose }) {
   const [problemType, setProblemType] = useState("");
@@ -20,18 +20,17 @@ function ReportProblemForm({ onClose }) {
     try {
       setLoading(true);
 
-      // IMPORTANT: Use FormData for file upload
       const formData = new FormData();
       formData.append("problemType", problemType);
       formData.append("description", description);
       formData.append("location", location);
       if (photo) {
-        formData.append("photo", photo); // name "photo" must match upload.single("photo")
+        formData.append("photo", photo);
       }
 
-      const res = await fetch("http://localhost:5000/api/report-problem", {
+      const res = await fetch(`${API}/api/report-problem`, {
         method: "POST",
-        body: formData, // DO NOT set Content-Type manually
+        body: formData,
       });
 
       const data = await res.json();
